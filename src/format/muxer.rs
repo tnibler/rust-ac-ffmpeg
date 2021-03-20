@@ -71,7 +71,8 @@ impl MuxerBuilder {
     }
 
     /// Add a new stream with given parameters. The metadata options will be set on the new stream's options dict.
-    pub fn add_stream(&mut self, params: &CodecParameters, metadata: Option<Vec<DictOption>>) -> Result<(), Error> {
+    /// Returns the created stream's index
+    pub fn add_stream(&mut self, params: &CodecParameters, metadata: Option<Vec<DictOption>>) -> Result<i32, Error> {
         let stream_index = unsafe { ffw_muxer_new_stream(self.ptr, params.as_ptr()) };
 
         if stream_index < 0 {
@@ -97,7 +98,7 @@ impl MuxerBuilder {
             }
         }
 
-        Ok(())
+        Ok(stream_index)
     }
 
     /// Set a muxer option.
