@@ -8,8 +8,10 @@ fn main() {
 
     let rust_version = rustc_version::version_meta().expect("unable to get rustc version");
 
-    let all_ffmpeg_features = ac_ffmpeg_features::ffmpeg_features(true);
-    let available_ffmpeg_features = ac_ffmpeg_features::ffmpeg_features(docs_rs.is_some());
+    let all_ffmpeg_features = ["channel_layout_v2", "codec_params_side_data", "stream_side_data"];
+    // force enable all features and skip the weird build dependency that breaks cross compilation
+    // (can't link to windows ffmpeg when compiling on linux)
+    let available_ffmpeg_features = all_ffmpeg_features;
 
     // Avoid cfg-check warnings on Rust >= 1.77.
     if version_gte(&rust_version.semver, 1, 77) {
