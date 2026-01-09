@@ -8,7 +8,7 @@ fn main() {
 
     let rust_version = rustc_version::version_meta().expect("unable to get rustc version");
 
-    let all_ffmpeg_features = ["channel_layout_v2", "codec_params_side_data", "stream_side_data"];
+    let all_ffmpeg_features = ["channel_layout_v2", "codec_params_side_data"];
     // force enable all features and skip the weird build dependency that breaks cross compilation
     // (can't link to windows ffmpeg when compiling on linux)
     let available_ffmpeg_features = all_ffmpeg_features;
